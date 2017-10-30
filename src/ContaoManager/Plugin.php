@@ -23,13 +23,14 @@ class Plugin implements BundlePluginInterface
 {
     /**
      * @param ParserInterface $parser
-     *
+     *git stat
      * @return array
      */
     public function getBundles(ParserInterface $parser)
     {
         return [
-            BundleConfig::create(DreibeinArticleConfigBundle::class)->setLoadAfter([ContaoCoreBundle::class])
+            /*BundleConfig::create(DreibeinArticleConfigBundle::class)->setLoadAfter([ContaoCoreBundle::class])*/
+            BundleConfig::create('Dreibein\ArticleConfigBundle\DreibeinArticleConfigBundle')->setLoadAfter([ContaoCoreBundle::class])
         ];
     }
 }
