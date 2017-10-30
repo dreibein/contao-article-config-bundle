@@ -6,13 +6,14 @@
  * Time: 14:29
  */
 
-namespace ContaoManager;
+namespace Dreibein\ArticleConfigBundle\ContaoManager;
 
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
+use Dreibein\ArticleConfigBundle\DreibeinArticleConfigBundle;
 
 /**
  * Class Plugin
@@ -28,7 +29,7 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser)
     {
         return [
-            BundleConfig::create('Dreibein\ArticleConfigBundle\DreibeinArticleConfigBundle')->setLoadAfter([ContaoCoreBundle::class])
+            BundleConfig::create(DreibeinArticleConfigBundle::class)->setLoadAfter([ContaoCoreBundle::class])
         ];
     }
 }
