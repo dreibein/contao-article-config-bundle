@@ -83,7 +83,6 @@ class tl_dreibein_article extends Backend
                 echo('<pre>');
                 print_r($colors);
                 echo('</pre>');
-                die();
 
                 foreach ($colors as $color) {
                     $colorArray[$color['dreibein_theme_color']] = $color['dreibein_theme_color'];
