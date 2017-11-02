@@ -13,7 +13,7 @@ use Contao\Backend;
 use Contao\Database;
 use Contao\DataContainer;
 
-$GLOBALS['TL_DCA']['tl_article']['palettes']['default'] = str_replace("author;", "author;{dreibein_article_config_legend},dreibein_article_config_class,dreibein_article_config_space,dreibein_article_config_background;", $GLOBALS['TL_DCA']['tl_article']['palettes']['default']);
+$GLOBALS['TL_DCA']['tl_article']['palettes']['default'] = str_replace("author", "author;{dreibein_article_config_legend},dreibein_article_config_class,dreibein_article_config_space,dreibein_article_config_background", $GLOBALS['TL_DCA']['tl_article']['palettes']['default']);
 
 $GLOBALS['TL_DCA']['tl_article']['fields']['dreibein_article_config_class'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_class'],
