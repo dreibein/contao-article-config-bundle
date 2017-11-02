@@ -9,4 +9,3 @@
 $GLOBALS['TL_LANG']['tl_theme']['dreibein_theme_config'] = 'Farbkonfiguration';
 
 $GLOBALS['TL_LANG']['tl_theme']['dreibein_theme_colors'] = ['Farb-Klassen', 'Klassen, die man einem Artikel vergeben kann, um die Hintergrundfarbe zu bestimmen.'];
-$GLOBALS['TL_LANG']['tl_theme']['dreibein_theme_color']  = ['Farbe', 'Farbe'];

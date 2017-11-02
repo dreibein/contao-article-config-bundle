@@ -39,8 +39,7 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['dreibein_article_config_background']
     'label'            => &$GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_background'],
     'exclude'          => 'true',
     'inputType'        => 'select',
-    'options'   => ['test'],
-    //'options_callback' => [tl_dreibein_article::class, 'getColor'],
+    'options_callback' => [tl_dreibein_article::class, 'getColor'],
     'eval'             => ['tl_class'=>'w50', 'includeBlankOption'=>true],
     'sql'              => "varchar(60) NOT NULL default ''"
 ];
@@ -80,6 +79,11 @@ class tl_dreibein_article extends Backend
             $theme = $database->prepare("SELECT dreibein_theme_colors FROM tl_theme WHERE id=(SELECT pid FROM tl_layout WHERE id=?)")->execute($layoutId);
             if ($theme->numRows === 1) {
                 $colors = unserialize($theme->dreibein_theme_colors);
+
+                echo('<pre>');
+                print_r($colors);
+                echo('</pre>');
+                die();
 
                 foreach ($colors as $color) {
                     $colorArray[$color['dreibein_theme_color']] = $color['dreibein_theme_color'];
