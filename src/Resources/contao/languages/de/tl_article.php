@@ -16,4 +16,4 @@ $GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_space']['space-p']   
 $GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_space']['space-pt']  = 'Oben';
 $GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_space']['space-pb']  = 'Unten';
 
-$GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_background']         = ['Hintergrundfarbe', 'Stellen Sei ein welche Hintergrundfarbe der Artikel erhalten soll'];
+$GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_background']         = ['Hintergrundfarbe', 'Stellen Sie ein welche Hintergrundfarbe der Artikel erhalten soll'];
