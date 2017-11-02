@@ -39,6 +39,7 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['dreibein_article_config_background']
     'label'            => &$GLOBALS['TL_LANG']['tl_article']['dreibein_article_config_background'],
     'exclude'          => 'true',
     'inputType'        => 'select',
+    'options'   => ['test'],
     //'options_callback' => [tl_dreibein_article::class, 'getColor'],
     'eval'             => ['tl_class'=>'w50', 'includeBlankOption'=>true],
     'sql'              => "varchar(60) NOT NULL default ''"
