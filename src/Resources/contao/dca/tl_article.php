@@ -11,6 +11,7 @@ namespace Resources\contao\dca;
 
 use Contao\Backend;
 use Contao\Database;
+use Contao\DataContainer;
 
 $GLOBALS['TL_DCA']['tl_article']['palettes']['default'] = str_replace("author;", "author;{dreibein_article_config_legend},dreibein_article_config_class,dreibein_article_config_space,dreibein_article_config_background;", $GLOBALS['TL_DCA']['tl_article']['palettes']['default']);
 
@@ -50,19 +51,65 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['dreibein_article_config_background']
 class tl_dreibein_article extends Backend
 {
     /**
+     * @param DataContainer $dc
+     *
      * @return array
      */
-    public function getColor()
+    public function getColor(DataContainer $dc)
     {
         $colorArray = [];
 
+        /** @var Database $database */
         $database = Database::getInstance();
-        $colors   = $database->prepare("SELECT color FROM tl_dreibein_article_background")->execute();
 
-        while ($colors->next()) {
-            $colorArray[$colors->color] = $colors->color;
+        // get layoutId from tl_page
+        $layoutId = 0;
+
+        /** @var Database\Result $page */
+        $page = $database->prepare("SELECT pid, layout FROM tl_page WHERE id=?")->execute($dc->activeRecord->pid);
+        if ($page->numRows === 1) {
+            $layoutId = $page->layout;
+
+            if ($layoutId === 0 && $page->pid > 0) {
+                $layoutId = $this->getPageLayout($page);
+            }
         }
+        if ($layoutId > 0) {
+            /** @var Database\Result $theme */
+            $theme = $database->prepare("SELECT dreibein_theme_colors FROM tl_theme WHERE id=(SELECT pid FROM tl_layout WHERE id=?)")->execute($layoutId);
+            if ($theme->numRows === 1) {
+                $colors = unserialize($theme->dreibein_theme_colors);
 
+                foreach ($colors as $color) {
+                    $colorArray[$color['dreibein_theme_color']] = $color['dreibein_theme_color'];
+                }
+            }
+        }
         return $colorArray;
+    }
+
+    /**
+     * @param Database\Result $page
+     *
+     * @return int
+     */
+    private function getPageLayout(Database\Result $page)
+    {
+        $layoutId = 0;
+
+        /** @var Database $database */
+        $database = Database::getInstance();
+
+        /** @var Database\Result $page */
+        $page = $database->prepare("SELECT pid, layout FROM tl_page WHERE id=?")->execute($page->pid);
+        if ($page->numRows === 1) {
+            /** @var int $layoutId */
+            $layoutId = $page->layout;
+
+            if ($layoutId === 0 && $page->pid > 0) {
+                $this->getPageLayout($page);
+            }
+        }
+        return $layoutId;
     }
 }
