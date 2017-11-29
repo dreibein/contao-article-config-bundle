@@ -63,52 +63,30 @@ class tl_dreibein_article extends Backend
         $database = Database::getInstance();
 
         // get layoutId from tl_page
-        $layoutId = 0;
+        $layoutId = $dc->activeRecord->layout;
 
-        /** @var Database\Result $page */
-        $page = $database->prepare("SELECT pid, layout FROM tl_page WHERE id=?")->execute($dc->activeRecord->pid);
-        if ($page->numRows === 1) {
-            $layoutId = $page->layout;
-
-            if ($layoutId === 0 && $page->pid > 0) {
-                $layoutId = $this->getPageLayout($page);
+        // page has no own layout (look for parent pages)
+        if (!$layoutId) {
+            // find the parent page which has a layout
+            /** @var Database\Result $page */
+            $page = $database->prepare("SELECT pid, layout FROM tl_page WHERE id=?")->limit(1)->execute($dc->activeRecord->pid);
+            while ($page->layout == 0) {
+                /** @var Database\Result $page */
+                $page = $database->prepare("SELECT pid, layout FROM tl_page WHERE id=?")->limit(1)->execute($page->pid);
             }
+            $layoutId = $page->layout;
         }
+        // get the theme-colors
         if ($layoutId > 0) {
             /** @var Database\Result $theme */
-            $theme = $database->prepare("SELECT dreibein_theme_colors FROM tl_theme WHERE id=(SELECT pid FROM tl_layout WHERE id=?)")->execute($layoutId);
-            if ($theme->numRows === 1) {
-                $colors = unserialize($theme->dreibein_theme_colors);
-                foreach ($colors as $color) {
-                    $colorArray[$color['key']] = $color['value'];
-                }
+            $theme = $database->prepare("SELECT dreibein_theme_colors FROM tl_theme WHERE id=(SELECT pid FROM tl_layout WHERE id=?)")->limit(1)->execute($layoutId);
+
+            // get the colors
+            $colors = unserialize($theme->dreibein_theme_colors);
+            foreach ($colors as $color) {
+                $colorArray[$color['key']] = $color['value'];
             }
         }
         return $colorArray;
-    }
-
-    /**
-     * @param Database\Result $page
-     *
-     * @return int
-     */
-    private function getPageLayout(Database\Result $page)
-    {
-        $layoutId = 0;
-
-        /** @var Database $database */
-        $database = Database::getInstance();
-
-        /** @var Database\Result $page */
-        $page = $database->prepare("SELECT pid, layout FROM tl_page WHERE id=?")->execute($page->pid);
-        if ($page->numRows === 1) {
-            /** @var int $layoutId */
-            $layoutId = $page->layout;
-
-            if ($layoutId === 0 && $page->pid > 0) {
-                $this->getPageLayout($page);
-            }
-        }
-        return $layoutId;
     }
 }
