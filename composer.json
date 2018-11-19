@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "php": "^7.2",
     "contao/core-bundle": "^4.4"
   },
   "require-dev": {
@@ -30,6 +31,7 @@
       "src/Resources/contao/templates/"
     ]
   },
+  "prefer-stable": true,
   "config": {
     "preferred-install": "dist"
   },
