@@ -72,10 +72,9 @@ class tl_dreibein_article extends Backend
 
         // page has no own layout (look for parent pages)
         if (!$layoutId) {
-
-            $page = PageModel::findById($dc->activeRecord->pid);
-            while ($page && $page->layout === 0) {
-                $page = PageModel::findById($page->pid);
+            $page = PageModel::findById((int)$dc->activeRecord->pid);
+            while ($page && (int)$page->layout === 0) {
+                $page = PageModel::findById((int)$page->pid);
             }
             $layoutId = $page->layout;
         }
@@ -84,7 +83,6 @@ class tl_dreibein_article extends Backend
         if ($layout !== null) {
             /** @var DreibeinThemeModel $theme */
             $theme = ThemeModel::findById($layout->pid);
-
             if ($theme) {
                 $colors = StringUtil::deserialize($theme->dreibein_theme_colors);
                 foreach ($colors as $color) {
