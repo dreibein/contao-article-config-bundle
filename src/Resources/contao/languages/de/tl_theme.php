@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thomasvoggenreiter
- * Date: 02.11.17
- * Time: 07:59
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the Dreibein-Article-Config-Bundle.
+ * (c) Werbeagentur Dreibein GmbH
  */
 
 $table = 'tl_theme';

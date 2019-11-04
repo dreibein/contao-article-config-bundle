@@ -11,11 +11,25 @@
     }
   ],
   "require": {
-    "php": "^7.2",
-    "contao/core-bundle": "^4.4"
+    "php": "^7.3",
+    "contao/core-bundle": "^4.4",
+    "contao/conflicts": "@dev"
   },
   "require-dev": {
+    "php-http/guzzle6-adapter": "^2.0",
+    "phpro/grumphp": "^0.14.2",
+    "jakub-onderka/php-parallel-lint": "^1.0",
+    "friendsofphp/php-cs-fixer": "^2.14",
+    "squizlabs/php_codesniffer": "^3.3",
     "contao/manager-plugin": "^2.0"
+  },
+  "prefer-stable": true,
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "contao-manager-plugin": "Dreibein\\ArticleConfigBundle\\ContaoManager\\Plugin"
   },
   "autoload": {
     "psr-4": {
@@ -30,12 +44,5 @@
       "src/Resources/contao/languages/",
       "src/Resources/contao/templates/"
     ]
-  },
-  "prefer-stable": true,
-  "config": {
-    "preferred-install": "dist"
-  },
-  "extra": {
-    "contao-manager-plugin": "Dreibein\\ArticleConfigBundle\\ContaoManager\\Plugin"
   }
 }

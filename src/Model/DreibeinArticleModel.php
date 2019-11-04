@@ -2,23 +2,22 @@
 
 declare(strict_types=1);
 
-/**
- * Created by PhpStorm.
- * User: thomas
- * Date: 19.11.18
- * Time: 13:24
+/*
+ * This file is part of the Dreibein-Article-Config-Bundle.
+ * (c) Werbeagentur Dreibein GmbH
  */
 
 namespace Dreibein\ArticleConfigBundle\Model;
 
+use Contao\ArticleModel;
+
 /**
- * Class DreibeinArticleModel
- * @package Dreibein\ArticleConfigBundle\Model
+ * Class DreibeinArticleModel.
  *
  * @property string $dreibein_article_config_class
  * @property string $dreibein_article_config_space
  * @property string $dreibein_article_config_background
  */
-class DreibeinArticleModel
+class DreibeinArticleModel extends ArticleModel
 {
 }

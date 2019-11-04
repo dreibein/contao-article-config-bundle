@@ -1,0 +1,22 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+        file_size:
+            max_size: 30M
+            ignore_patterns: []
+        phplint:
+            exclude: ['vendor']
+            jobs: ~
+            triggered_by: ['php']
+        phpcs:
+            standard: ./ruleset.xml
+            severity: ~
+            error_severity: 1
+            warning_severity: 0
+            tab_width: ~
+            whitelist_patterns: []
+            encoding: ~
+            ignore_patterns: ['web/contao-manager.phar.php', 'contao/ContaoManagerPlugin.php']
+            sniffs: []
+            triggered_by: [php]
